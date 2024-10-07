@@ -2,6 +2,7 @@ import {FileReader} from './file-reader.interface.js';
 import {readFileSync} from 'node:fs';
 import {ConvenienceType, HousingType, Offer} from '../../types/index.js';
 import {UserType} from '../../types/user-type.enum.js';
+import {cityCoordinatesMap} from "../../types/index.js";
 
 export class TSVFileReader implements FileReader {
   private rawData = '';
@@ -41,6 +42,7 @@ export class TSVFileReader implements FileReader {
         conveniences: conveniences.split(';')
           .map((convenience) => ConvenienceType[convenience as 'Breakfast' | 'AirConditioning' | 'LaptopFriendly' | 'Workspace' | 'BabySeat' | 'Washer' | 'Towels' | 'Fridge']),
         author: {firstname, email, avatarPath, userType: UserType[userType as 'Regular' | 'Pro']},
+        coordinates: cityCoordinatesMap[city],
       }));
   }
 }
